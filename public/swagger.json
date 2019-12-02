@@ -13,11 +13,11 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "47.52.56.116:8202",
+  "host": "127.0.0.1:3000",
   "basePath": "/v2",
   "tags": [
     {
-      "name": "HomePage",
+      "name": "XM_Overview_INFO",
       "description": "Everything about your HomePage",
       "externalDocs": {
         "description": "Find out more",
@@ -30,47 +30,76 @@
     "http"
   ],
   "paths": {
-    "/getHomePageInfo": {
+    "/getOverviewInfo": {
       "get": {
         "tags": [
-          "HomePage"
+          "XM_Overview_INFO"
         ],
-        "summary": "getHomePageInformation",
-        "description": "图二数据获取",
-        "operationId": "getHomePageInfo",
+        "summary": "获取航次概要信息",
+        "description": "图一数据获取",
+        "operationId": "getOverviewInfo",
         "consumes": [
           "application/json",
           "application/xml"
         ],
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
           {
             "in": "query",
-            "name": "voyageNumber",
+            "name": "VoyageName",
             "description": "航次名称",
             "required": true,
             "default": KK1801,
-            "schema": {
-              "$ref": "#/definitions/Pet"
-            }
           }
         ],
         "responses": {
-          "405": {
-            "description": "Invalid input"
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "概要ID"
+                },
+                "VoyageNumberID": {
+                  "type": "string",
+                  "description": "航次ID"
+                },
+                "VoyageName": {
+                  "type": "string",
+                  "description": "航次名称"
+                },
+                "ImageUrl": {
+                  "type": "string",
+                  "description": "航线图"
+                },
+                "Introduce": {
+                  "type": "string",
+                  "description": "航次介绍"
+                },
+                "IntroduceUrl": {
+                  "type": "string",
+                  "description": "航次介绍图"
+                },
+                "Parameter": {
+                  "type": "string",
+                  "description": "测量参数"
+                },
+                "Equipment": {
+                  "type": "string",
+                  "description": "作业设备"
+                },
+                "EquipmentUrl": {
+                  "type": "string",
+                  "description": "作业设备图"
+                }
+              }
+            }  
           }
-        },
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ]
+        }
       }
     },
   },

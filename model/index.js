@@ -3,9 +3,9 @@ var app = express();
 var mysql = require('mysql');
 var db = require('../config/db');
 
-app.getHomePageInfo = function(voyageNumber, callback) {
+app.getOverviewInfo = function(VoyageName, callback) {
 	var c = mysql.createConnection(db);
-	var sql = "select * from xm_homepage where voyageNumber = '"+voyageNumber+"';";
+	var sql = "select * from XM_Overview_INFO where VoyageName = '"+VoyageName+"';";
 	c.connect();
 	c.query(sql, function(error, result) {
 		if (error) {console.log(error)};

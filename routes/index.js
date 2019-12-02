@@ -6,13 +6,13 @@ var util = require('util');
 var index = require('../model/index');
 
 /* GET home page. */
-router.route('/getHomePageInfo')
+router.route('/getOverviewInfo')
 	.get(function(req, res) {
-		var voyageNumber = req.query.voyageNumber;
+		var VoyageName = req.query.VoyageName;
 		var callback = function(code, message, result) {
 			res.json({code: code, message: message, result: result});
 		}
-		index.getHomePageInfo(voyageNumber, callback);
+		index.getOverviewInfo(VoyageName, callback);
 	})
 
 module.exports = router;
