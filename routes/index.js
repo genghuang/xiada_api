@@ -15,7 +15,7 @@ router.route('/getOverviewInfo')
 		index.getOverviewInfo(VoyageName, callback);
 	})
 
-/* GET home page. */
+/* GET VoyageInfo. */
 router.route('/getVoyageInfo')
 	.get(function(req, res) {
 		var VoyageName = req.query.VoyageName;
@@ -24,5 +24,15 @@ router.route('/getVoyageInfo')
 		}
 		index.getVoyageInfo(VoyageName, callback);
 	})
-	
+
+/* GET SiteInfo. */
+router.route('/getSiteInfo')
+	.get(function(req, res) {
+		var id = req.query.id;
+		var callback = function(code, message, result) {
+			res.json({code: code, message: message, result: result})
+		}
+		index.getSiteInfo(id, callback);
+	})
+
 module.exports = router;

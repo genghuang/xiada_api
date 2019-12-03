@@ -31,6 +31,14 @@
         "description": "Find out more",
         "url": "http://localhost:3000"
       },
+    },
+    {
+      "name": "XM_Site_INFO",
+      "description": "Everything about your XM_Site_INFO",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://localhost:3000"
+      },
     }
   ],
   "schemes": [
@@ -132,6 +140,125 @@
             "description": "航次名称",
             "required": true,
             "default": KK1801,
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "航次ID"
+                },
+                "VoyageName": {
+                  "type": "string",
+                  "description": "航次名称"
+                },
+                "Voyages": {
+                  "type": "string",
+                  "description": "航行航程"
+                },
+                "Chief": {
+                  "type": "string",
+                  "description": "航行首席"
+                },
+                "SailingTime": {
+                  "type": "string",
+                  "description": "航次时间"
+                },
+                "JobTimexAxis": {
+                  "type": "string",
+                  "description": "作业时间分布图xAxis"
+                },
+                "JobTimeSeries": {
+                  "type": "string",
+                  "description": "作业时间分布图Series"
+                },
+                "totalSite": {
+                  "type": "string",
+                  "description": "站点总计"
+                },
+                "SiteInfo": {
+                  "type": "object",
+                  "properties": {
+                    "SiteName": {
+                      "type": "string",
+                      "description": "站点名称"
+                    },
+                    "Longitude": {
+                      "type": "string",
+                      "description": "站点经度"
+                    },
+                    "Latidude": {
+                      "type": "string",
+                      "description": "站点纬度"
+                    },
+                  },
+                },
+                "Task": {
+                  "type": "object",
+                  "properties": {
+                    "Series": {
+                      "type": "string",
+                      "description": "作业分布图Series"
+                    },
+                    "Legend": {
+                      "type": "string",
+                      "description": "作业分布图Legend"
+                    },
+                    "totalSeries": {
+                      "type": "string",
+                      "description": "作业分布图数量总计"
+                    },
+                  },
+                },
+                "Sample": {
+                  "type": "object",
+                  "properties": {
+                    "Series": {
+                      "type": "string",
+                      "description": "样品分布图Series"
+                    },
+                    "Legend": {
+                      "type": "string",
+                      "description": "样品分布图Legend"
+                    },
+                    "totalSeries": {
+                      "type": "string",
+                      "description": "样品分布图数量总计"
+                    },
+                  },
+                }
+              }
+            }  
+          }
+        }
+      }
+    },
+    "/getSiteInfo": {
+      "get": {
+        "tags": [
+          "XM_Site_INFO"
+        ],
+        "summary": "获取站点数据展示信息",
+        "description": "图三数据获取",
+        "operationId": "getSiteInfo",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "description": "站点ID",
+            "required": true,
+            "default": 1,
           }
         ],
         "responses": {

@@ -3,6 +3,7 @@ var app = express();
 var mysql = require('mysql');
 var db = require('../config/db');
 
+/* GET OverviewInfo. */
 app.getOverviewInfo = function(VoyageName, callback) {
 	var c = mysql.createConnection(db);
 	var sql = "select * from XM_Overview_INFO where VoyageName = '"+VoyageName+"';";
@@ -22,6 +23,7 @@ app.getOverviewInfo = function(VoyageName, callback) {
 	c.end();
 }
 
+/* GET VoyageInfo. */
 var getVoyageINFO = function(VoyageName) {
 	return new Promise(function (resolve, reject) {
 		var c = mysql.createConnection(db);
@@ -40,7 +42,7 @@ var getVoyageINFO = function(VoyageName) {
 var getSiteINFO = function(results) {
 	return new Promise(function (resolve, reject) {
 		var c = mysql.createConnection(db);
-		var sql = "select SiteName, Longitude, Latidude from XM_Site_INFO where VoyageNumberID = '"+results[0].id+"';";
+		var sql = "select id, SiteName, Longitude, Latidude from XM_Site_INFO where VoyageNumberID = '"+results[0].id+"';";
 		c.connect();
 		c.query(sql, function(error, result) {
 			if (error) {
@@ -85,7 +87,6 @@ var getSampleINFO = function(results) {
 		c.end();
 	})
 }
-
 app.getVoyageInfo = function(VoyageName, callback) {
 	getVoyageINFO(VoyageName).then(function(result) {
 		getSiteINFO(result).then(function(SiteINFO) {
@@ -121,4 +122,46 @@ app.getVoyageInfo = function(VoyageName, callback) {
 	// c.end();
 }
 
+/* GET SiteInfo. */
+var SiteINFOforID =  function(id) {
+	return new Promise(function (resolve, reject) {
+		var c = mysql.createConnection(db);
+		var sql = "select * from XM_Site_INFO where id = '"+id+"';";
+		c.connect();
+		c.query(sql, function(error, result) {
+			if (error) {
+				reject(error);
+			}else {
+				resolve(result);
+			}
+		});
+		c.end();
+	})
+}
+var DataINFO = function(results) {
+	return new Promise(function (resolve, reject) {
+		var c = mysql.createConnection(db);
+		var sql = "select XM_Task_INFO.Type,XM_Task_INFO.Data as Task,XM_Sample_INFO.Data as Sample,XM_Task_INFO.OperationTime from XM_Task_INFO inner join XM_Sample_INFO on XM_Task_INFO.SiteID = XM_Sample_INFO.SiteID and XM_Task_INFO.Type = XM_Sample_INFO.Type where XM_Task_INFO.SiteID = '"+results[0].id+"';"
+		c.connect();
+		c.query(sql, function(error, result) {
+			if (error) {
+				reject(error);
+			}else {
+				var Data = result;
+				resolve(Data);
+			}
+		});
+		c.end();
+	})
+}
+app.getSiteInfo = function(id, callback) {
+	SiteINFOforID(id).then(function(result) {
+		DataINFO(result).then(function(Data) {
+			result[0].SiteData = Data;
+			var code = 0;
+			var message = "success";
+			callback(code, message, result);
+		})
+	})
+}
 module.exports = app;
