@@ -35,4 +35,24 @@ router.route('/getSiteInfo')
 		index.getSiteInfo(id, callback);
 	})
 
+/* GET TaskInfo. */
+router.route('/getTaskInfo')
+	.get(function(req, res) {
+		var VoyageName = req.query.VoyageName;
+		var callback = function(code, message, result) {
+			res.json({code: code, message: message, result: result})
+		}
+		index.getTaskInfo(VoyageName, callback);
+	})
+
+/* GET Voyages. */
+router.route('/getVoyages')
+	.get(function(req, res) {
+		var VoyageName = req.query.VoyageName;
+		var callback = function(code, message, result) {
+			res.json({code: code, message: message, result: result})
+		}
+		index.getVoyages(VoyageName, callback);
+	})
+
 module.exports = router;

@@ -39,6 +39,14 @@
         "description": "Find out more",
         "url": "http://localhost:3000"
       },
+    },
+    {
+      "name": "XM_Task_INFO",
+      "description": "Everything about your XM_Task_INFO",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://localhost:3000"
+      },
     }
   ],
   "schemes": [
@@ -259,6 +267,150 @@
             "description": "站点ID",
             "required": true,
             "default": 1,
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "概要ID"
+                },
+                "VoyageNumberID": {
+                  "type": "string",
+                  "description": "航次ID"
+                },
+                "VoyageName": {
+                  "type": "string",
+                  "description": "航次名称"
+                },
+                "ImageUrl": {
+                  "type": "string",
+                  "description": "航线图"
+                },
+                "Introduce": {
+                  "type": "string",
+                  "description": "航次介绍"
+                },
+                "IntroduceUrl": {
+                  "type": "string",
+                  "description": "航次介绍图"
+                },
+                "Parameter": {
+                  "type": "string",
+                  "description": "测量参数"
+                },
+                "Equipment": {
+                  "type": "string",
+                  "description": "作业设备"
+                },
+                "EquipmentUrl": {
+                  "type": "string",
+                  "description": "作业设备图"
+                }
+              }
+            }  
+          }
+        }
+      }
+    },
+    "/getTaskInfo": {
+      "get": {
+        "tags": [
+          "XM_Task_INFO"
+        ],
+        "summary": "获取作业回放数据展示信息",
+        "description": "图四数据获取",
+        "operationId": "getTaskInfo",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "VoyageName",
+            "description": "航次名称",
+            "required": true,
+            "default": KK1801,
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "概要ID"
+                },
+                "VoyageNumberID": {
+                  "type": "string",
+                  "description": "航次ID"
+                },
+                "VoyageName": {
+                  "type": "string",
+                  "description": "航次名称"
+                },
+                "ImageUrl": {
+                  "type": "string",
+                  "description": "航线图"
+                },
+                "Introduce": {
+                  "type": "string",
+                  "description": "航次介绍"
+                },
+                "IntroduceUrl": {
+                  "type": "string",
+                  "description": "航次介绍图"
+                },
+                "Parameter": {
+                  "type": "string",
+                  "description": "测量参数"
+                },
+                "Equipment": {
+                  "type": "string",
+                  "description": "作业设备"
+                },
+                "EquipmentUrl": {
+                  "type": "string",
+                  "description": "作业设备图"
+                }
+              }
+            }  
+          }
+        }
+      }
+    },
+    "/getVoyages": {
+      "get": {
+        "tags": [
+          "XM_Site_INFO"
+        ],
+        "summary": "获取航线展示信息",
+        "description": "图五数据获取",
+        "operationId": "getVoyages",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "VoyageName",
+            "description": "航次名称",
+            "required": true,
+            "default": KK1801,
           }
         ],
         "responses": {
