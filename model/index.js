@@ -210,4 +210,24 @@ app.getVoyages = function(VoyageName, callback) {
 	});
 	c.end();
 }
+
+/* GET Flight. */
+app.getFlights = function(callback) {
+	var c = mysql.createConnection(db);
+	var sql = "select * from XM_Flight_INFO;";
+	c.connect();
+	c.query(sql, function(error, result) {
+		if (error) {console.log(error)}
+		if (result != '') {
+			var code = 0;
+			var message = "success";
+			callback(code, message, result);
+		}else {
+			var code = -1;
+			var message = "fail";
+			callback(code, message, result);
+		}
+	});
+	c.end();
+}
 module.exports = app;

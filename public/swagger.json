@@ -33,6 +33,14 @@
       },
     },
     {
+      "name": "XM_Flight_INFO",
+      "description": "Everything about your XM_Flight_INFO",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://localhost:3000"
+      },
+    },
+    {
       "name": "XM_Site_INFO",
       "description": "Everything about your XM_Site_INFO",
       "externalDocs": {
@@ -412,6 +420,69 @@
             "required": true,
             "default": KK1801,
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "description": "概要ID"
+                },
+                "VoyageNumberID": {
+                  "type": "string",
+                  "description": "航次ID"
+                },
+                "VoyageName": {
+                  "type": "string",
+                  "description": "航次名称"
+                },
+                "ImageUrl": {
+                  "type": "string",
+                  "description": "航线图"
+                },
+                "Introduce": {
+                  "type": "string",
+                  "description": "航次介绍"
+                },
+                "IntroduceUrl": {
+                  "type": "string",
+                  "description": "航次介绍图"
+                },
+                "Parameter": {
+                  "type": "string",
+                  "description": "测量参数"
+                },
+                "Equipment": {
+                  "type": "string",
+                  "description": "作业设备"
+                },
+                "EquipmentUrl": {
+                  "type": "string",
+                  "description": "作业设备图"
+                }
+              }
+            }  
+          }
+        }
+      }
+    },
+    "/getFlights": {
+      "get": {
+        "tags": [
+          "XM_Flight_INFO"
+        ],
+        "summary": "获取航班展示信息",
+        "description": "图二航班数据获取",
+        "operationId": "getFlights",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/json"
         ],
         "responses": {
           "200": {

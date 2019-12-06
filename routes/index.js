@@ -55,4 +55,13 @@ router.route('/getVoyages')
 		index.getVoyages(VoyageName, callback);
 	})
 
+/* GET Flight. */
+router.route('/getFlights')
+	.get(function(req, res) {
+		var callback = function(code, message, result) {
+			res.json({code: code, message: message, result: result})
+		}
+		index.getFlights(callback);
+	})
+
 module.exports = router;
