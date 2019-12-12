@@ -104,22 +104,6 @@ app.getVoyageInfo = function(VoyageName, callback) {
 			
 		})
 	})
-	// var c = mysql.createConnection(db);
-	// var sql = "select * from XM_VoyageNumber_INFO where VoyageName = '"+VoyageName+"';";
-	// c.connect()
-	// c.query(sql, function(error, result) {
-	// 	if (error) {console.log(error)};
-	// 	if(result != '') {
-	// 		var code = 0;
-	// 		var message = "success";
-	// 		callback(code, message, result);
-	// 	}else {
-	// 		var code = -1;
-	// 		var message = "fail";
-	// 		callback(code, message, result);
-	// 	}
-	// });
-	// c.end();
 }
 
 /* GET SiteInfo. */
@@ -166,10 +150,10 @@ app.getSiteInfo = function(id, callback) {
 }
 
 /* GET TaskInfo. */
-var TaskINFO = function(VoyageName) {
+var TaskINFO = function(VoyageName, SiteID) {
 	return new Promise(function (resolve, reject) {
 		var c = mysql.createConnection(db);
-		var sql = "select XM_Task_INFO.*,XM_Site_INFO.SiteName from XM_Task_INFO inner join XM_Site_INFO on XM_Task_INFO.SiteID = XM_Site_INFO.id where XM_Task_INFO.VoyageName = '"+VoyageName+"' and XM_Task_INFO.SiteID = 1 and XM_Task_INFO.Type = 'CTD作业';";
+		var sql = "select XM_Task_INFO.*,XM_Site_INFO.SiteName from XM_Task_INFO inner join XM_Site_INFO on XM_Task_INFO.SiteID = XM_Site_INFO.id where XM_Task_INFO.VoyageName = '"+VoyageName+"' and XM_Task_INFO.SiteID = '"+SiteID+"' and XM_Task_INFO.Type = 'CTD作业';";
 		c.connect();
 		c.query(sql, function(error, result) {
 			if (error) {
@@ -182,9 +166,9 @@ var TaskINFO = function(VoyageName) {
 		c.end();
 	})
 }
-app.getTaskInfo = function(VoyageName, callback) {
-	TaskINFO(VoyageName).then(function(result) {
-		result[0].cast = '1';
+app.getTaskInfo = function(VoyageName, SiteID, callback) {
+	TaskINFO(VoyageName, SiteID).then(function(result) {
+		result[0].cast = result[0].SiteID;
 		var code = 0;
 		var message = "success";
 		callback(code, message, result);

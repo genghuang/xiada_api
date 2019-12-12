@@ -13,7 +13,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
   },
-  "host": "47.52.56.116:8202",
+  "host": "127.0.0.1:3000",
   "basePath": "/v2",
   "tags": [
     {
@@ -347,6 +347,13 @@
             "description": "航次名称",
             "required": true,
             "default": KK1801,
+          },
+          {
+            "in": "query",
+            "name": "SiteID",
+            "description": "站位ID",
+            "required": true,
+            "default": 1,
           }
         ],
         "responses": {
