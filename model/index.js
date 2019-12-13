@@ -58,7 +58,8 @@ var getSiteINFO = function(results) {
 var getTaskINFO = function(results) {
 	return new Promise(function (resolve, reject) {
 		var c = mysql.createConnection(db);
-		var sql = "select SUM(Data) as Series, Type as Legend, (select SUM(Data) from XM_Task_INFO where VoyageNumberID = '"+results[0].id+"') as totalSeries from XM_Task_INFO where VoyageNumberID = '"+results[0].id+"' GROUP BY Type";
+		// var sql = "select SUM(Data) as Series, Type as Legend, (select SUM(Data) from XM_Task_INFO where VoyageNumberID = '"+results[0].id+"') as totalSeries from XM_Task_INFO where VoyageNumberID = '"+results[0].id+"' GROUP BY Type";
+		var sql = "select SUM(Data) as Series, Type as Legend from XM_Task_INFO where VoyageNumberID = '"+results[0].id+"' GROUP BY Type";
 		c.connect();
 		c.query(sql, function(error, result) {
 			if (error) {
@@ -74,7 +75,8 @@ var getTaskINFO = function(results) {
 var getSampleINFO = function(results) {
 	return new Promise(function (resolve, reject) {
 		var c = mysql.createConnection(db);
-		var sql = "select SUM(Data) as Series,Type as Legend,(select SUM(Data) from XM_Sample_INFO where VoyageNumberID = '"+results[0].id+"') as totalSeries from XM_Sample_INFO where VoyageNumberID = '"+results[0].id+"' GROUP BY Type";
+		// var sql = "select SUM(Data) as Series,Type as Legend,(select SUM(Data) from XM_Sample_INFO where VoyageNumberID = '"+results[0].id+"') as totalSeries from XM_Sample_INFO where VoyageNumberID = '"+results[0].id+"' GROUP BY Type";
+		var sql = "select SUM(Data) as Series,Type as Legend from XM_Sample_INFO where VoyageNumberID = '"+results[0].id+"' GROUP BY Type";
 		c.connect();
 		c.query(sql, function(error, result) {
 			if (error) {
