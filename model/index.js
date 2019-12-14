@@ -144,7 +144,7 @@ var DataTaskINFO = function(results) {
 var DataSampleINFO = function(results) {
 	return new Promise(function (resolve, reject) {
 		var c = mysql.createConnection(db);
-		var sql = "select Type as SampleType, Data as SampleData from XM_Sample_INFO where SiteID = '"+result[0].id+"';";
+		var sql = "select Type as SampleType, Data as SampleData from XM_Sample_INFO where SiteID = '"+results[0].id+"';";
 		c.connect();
 		c.query(sql, function(error, result) {
 			if (error) {
@@ -160,7 +160,7 @@ var DataSampleINFO = function(results) {
 var DataOperationTimeINFO = function(results) {
 	return new Promise(function (resolve, reject) {
 		var c = mysql.createConnection(db);
-		var sql = "select Type as OperationTimeType, OperationTime as OperationTimeData from XM_Task_INFO where SiteID = '"+result[0].id+"';";
+		var sql = "select Type as OperationTimeType, OperationTime as OperationTimeData from XM_Task_INFO where SiteID = '"+results[0].id+"';";
 		c.connect();
 		c.query(sql, function(error, result) {
 			if (error) {
