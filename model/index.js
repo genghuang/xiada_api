@@ -124,10 +124,43 @@ var SiteINFOforID =  function(id) {
 		c.end();
 	})
 }
-var DataINFO = function(results) {
+var DataTaskINFO = function(results) {
 	return new Promise(function (resolve, reject) {
 		var c = mysql.createConnection(db);
-		var sql = "select XM_Task_INFO.Type,XM_Task_INFO.Data as Task,XM_Sample_INFO.Data as Sample,XM_Task_INFO.OperationTime from XM_Task_INFO inner join XM_Sample_INFO on XM_Task_INFO.SiteID = XM_Sample_INFO.SiteID and XM_Task_INFO.Type = XM_Sample_INFO.Type where XM_Task_INFO.SiteID = '"+results[0].id+"';"
+		// var sql = "select XM_Task_INFO.Type,XM_Task_INFO.Data as Task,XM_Sample_INFO.Data as Sample,XM_Task_INFO.OperationTime from XM_Task_INFO inner join XM_Sample_INFO on XM_Task_INFO.SiteID = XM_Sample_INFO.SiteID and XM_Task_INFO.Type = XM_Sample_INFO.Type where XM_Task_INFO.SiteID = '"+results[0].id+"';"
+		var sql = "select Type as TaskType, Data as TaskData from XM_Task_INFO where SiteID = '"+results[0].id+"';";
+		c.connect();
+		c.query(sql, function(error, result) {
+			if (error) {
+				reject(error);
+			}else {
+				var Data = result;
+				resolve(Data);
+			}
+		});
+		c.end();
+	})
+}
+var DataSampleINFO = function(results) {
+	return new Promise(function (resolve, reject) {
+		var c = mysql.createConnection(db);
+		var sql = "select Type as SampleType, Data as SampleData from XM_Sample_INFO where SiteID = '"+result[0].id+"';";
+		c.connect();
+		c.query(sql, function(error, result) {
+			if (error) {
+				reject(error);
+			}else {
+				var Data = result;
+				resolve(Data);
+			}
+		});
+		c.end();
+	})
+}
+var DataOperationTimeINFO = function(results) {
+	return new Promise(function (resolve, reject) {
+		var c = mysql.createConnection(db);
+		var sql = "select Type as OperationTimeType, OperationTime as OperationTimeData from XM_Task_INFO where SiteID = '"+result[0].id+"';";
 		c.connect();
 		c.query(sql, function(error, result) {
 			if (error) {
@@ -142,11 +175,17 @@ var DataINFO = function(results) {
 }
 app.getSiteInfo = function(id, callback) {
 	SiteINFOforID(id).then(function(result) {
-		DataINFO(result).then(function(Data) {
-			result[0].SiteData = Data;
-			var code = 0;
-			var message = "success";
-			callback(code, message, result);
+		DataTaskINFO(result).then(function(Data) {
+			result[0].TaskInfo = Data;
+			DataSampleINFO(result).then(function(Data) {
+   				result[0].SampleInfo = Data;
+				DataOperationTimeINFO(result).then(function(Data) {
+					result[0].OperationTimeInfo = Data;
+					var code = 0;
+					var message = "success";
+					callback(code, message, result);
+				})
+			})
 		})
 	})
 }
