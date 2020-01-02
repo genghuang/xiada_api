@@ -42,7 +42,7 @@ var getVoyageINFO = function(VoyageName) {
 var getSiteINFO = function(results) {
 	return new Promise(function (resolve, reject) {
 		var c = mysql.createConnection(db);
-		var sql = "select id, SiteName, Longitude, Latidude from XM_Site_INFO where VoyageNumberID = '"+results[0].id+"';";
+		var sql = "select id, SiteName, Longitude, Latitude from XM_Site_INFO where VoyageNumberID = '"+results[0].id+"';";
 		c.connect();
 		c.query(sql, function(error, result) {
 			if (error) {
@@ -219,7 +219,7 @@ app.getTaskInfo = function(VoyageName, SiteID, callback) {
 /* GET Voyages. */
 app.getVoyages = function(VoyageName, callback) {
 	var c = mysql.createConnection(db);
-	var sql = "select id,VoyageName, SiteName, Longitude, Latidude from XM_Site_INFO where VoyageName = '"+VoyageName+"';";
+	var sql = "select id,VoyageName, SiteName, Longitude, Latitude from XM_Site_INFO where VoyageName = '"+VoyageName+"';";
 	c.connect();
 	c.query(sql, function(error, result) {
 		if (error) {console.log(error)}
